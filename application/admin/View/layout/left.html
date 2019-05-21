@@ -58,6 +58,8 @@
                 </li>
 
 
+
+
                  <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 商品管理
@@ -82,15 +84,11 @@
                                     </a>
                                 </li>
                             </ul>
-
-
-
-
                         </li>
 
-                        <li class="sidebar-nav-link">
+                    <li class="sidebar-nav-link">
                             <a href="javascript:;" class="sidebar-nav-sub-title">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 分类管理
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 类别管理
                             </a>
 
 
@@ -98,7 +96,7 @@
                             <ul class="sidebar-nav sidebar-nav-sub">
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('cate/lst')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 所有分类
+                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 分类列表
                                     </a>
                                 </li>
 
@@ -111,8 +109,52 @@
 
 
                         </li>
+
+
+
                     </ul>
                 </li>
+
+
+             <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 供应商管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{:url('supplier/lst')}" class="">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 供应商列表
+                            </a>
+
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="javascript:;" class="sidebar-nav-sub-title">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 供货单管理
+                            </a>
+
+
+
+                            <ul class="sidebar-nav sidebar-nav-sub">
+                                <li class="sidebar-nav-link">
+                                    <a href="{:url('supplyList/lst')}">
+                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 供货单列表
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-nav-link">
+                                    <a href="{:url('supplyList/add')}">
+                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 新增供货单
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="sidebar-nav-link">
                     <a href="index.html" class="active">
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页

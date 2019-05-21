@@ -3,6 +3,21 @@ namespace app\admin\model;
 use think\Model;
 class Cate extends Model
 {
+    //建立分类与供应商一对多的关系一种类别对应多个供应商
+    public function supplier(){
+        return $this->hasMany('Supplier','sp_cate_id','id');
+    }
+    public function getSpById($id){
+        return self::with('supplier')->find($id);
+    }
+
+    //建立分类与产品一对多的关系一种类别对应多个产品
+    public function product(){
+        return $this->hasMany('Product','pdt_cate_id','id');
+    }
+    public function getPdtById($id){
+        return self::with('product')->find($id);
+    }
     //过滤前台发过来的多于字段
     protected $field=true;
 

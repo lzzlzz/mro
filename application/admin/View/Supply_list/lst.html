@@ -1,10 +1,10 @@
-   <div class="tpl-content-wrapper">
+ <div class="tpl-content-wrapper">
             <div class="row-content am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">文章列表</div>
+                                <div class="widget-title  am-cf">供应商列表</div>
 
 
                             </div>
@@ -45,52 +45,49 @@
                                 </div>
 
                                 <div class="am-u-sm-12">
-                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                         <thead>
                                             <tr>
-                                                <th>商品缩略图</th>
-                                                <th>商品编号</th>
-                                                <th>商品名称</th>
-                                                <th>商品类别</th>
+                                                <th>供应商编号</th>
+                                                <th>姓名</th>
+                                                <th>电话</th>
+                                                <th>邮箱</th>
+                                                <th>积分</th>
+                                                <th>所属类别</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-    {volist name="pdtRes" id="vo"}
-                                            <tr class="gradeX">
-                                                <td>
-                                                 
-    {if condition="$vo['pdt_pic'] neq null"}
-          <img src="__uploads__/{$vo.pdt_pic}" class="tpl-table-line-img" />
-    {else/}
-          <span>暂无图片</span>
-    {/if}                                                    
-                                                </td>
-            <td class="am-text-middle">{$vo.pdt_num}</td>
-            <td class="am-text-middle">{$vo.pdt_name}</td>
-        <td class="am-text-middle">{$vo['cate']['cate_name']}</td>
-                <td class="am-text-middle">
-                    <div class="tpl-table-black-operation">
-                        <a href="{:url('edit',array('id'=>$vo['id']))}">
-                            <i class="am-icon-pencil"></i> 编辑
-                        </a>
-                        <a  href="{:url('del',array('id'=>$vo['id']))}" class="tpl-table-black-operation-del">
-                            <i class="am-icon-trash"></i> 删除
-                        </a>
-                    </div>
-                </td>
-            </tr>
-{/volist}                                    
-                        
-
-                                            <!-- more data -->
+       
+   {volist name="spRes" id="vo"}
+        <tr class="even gradeC">
+            <td>{$vo.sp_num}</td>
+            <td>{$vo.sp_name}</td>
+            <td>{$vo.sp_phone}</td>
+            <td>{$vo.sp_email}</td>
+            <td>{$vo.sp_score}</td>
+            <td>{$vo.cate.cate_name}</td>
+            <td>
+                <div class="tpl-table-black-operation">
+                    <a href="{:url('edit',array('id'=>$vo['id']))}">
+                        <i class="am-icon-pencil"></i> 审核
+                    </a>
+                    <a onClick="return confirm('确定删除?');" href="{:url('del',array('id'=>$vo['id']))}" class="tpl-table-black-operation-del">
+                        <i class="am-icon-trash"></i> 删除
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {/volist}
+        <!-- more data -->
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <div class="am-u-lg-12 am-cf">
 
                                     <div class="am-fr">
-                                       {$pdtRes->render()}
+                                        {$spRes->render()}
                                     </div>
                                 </div>
                             </div>
@@ -99,3 +96,6 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+

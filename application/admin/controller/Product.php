@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
+use app\admin\model;
 class Product extends Controller
 {
     public function add(){
@@ -48,17 +49,30 @@ class Product extends Controller
        }
    }
     public function lst()
-    {
-    	$pdtRes=db('product')->paginate(2);
+    {   
+        //根据列表中的分类id找分类名称 这种方法比较繁琐 //通过ORM建立参照关系进行关联查询简单
+        // $cateRes=db('cate')->field(['id','cate_name'])->select();
+        // static $arr=[];
+        // foreach ($cateRes as $k => $v) {
+        //     $arr[$v['id']]=$v['cate_name'];
+        // }
+       // dump($cateRes);die();
+      $pdt=new model\Product;
+      $pdtRes=$pdt::with('cate')->paginate(2);
     	$this->assign([
     		'pdtRes'=>$pdtRes,
     	]);
        return view();
     }
     public function edit($id){
-    	$cusRes=db('customer')->find($id);
+
+    	$pdtRes=db('product')->find($id);
+
+        $cateRes=model('Cate')->cateTree();
+        
     	$this->assign([
-    		'cusRes'=>$cusRes,
+    		'pdtRes'=>$pdtRes,
+            'cateRes'=>$cateRes,
     	]);
     	if(request()->isPost()){
     		$data=input('post.');
@@ -73,8 +87,15 @@ class Product extends Controller
     }
 
     public function del($id){
-    	$res=db('customer')->delete($id);
+        //find()返回的是一个数组 select（）返回的是数组中还有数组
+        $pdt_pic=db('product')->field('pdt_pic')->find($id);
+        
+    	$res=db('product')->delete($id);
 		if($res){
+            $picSrc=IMG_UPLOADS.$pdt_pic['pdt_pic'];
+            if (file_exists($picSrc)) {//监测是否有图片
+                @unlink($picSrc);
+            }
 			$this->success('用户信息删除成功',url('lst'));
 		}else{
 			$this->error('用户信息删除失败');

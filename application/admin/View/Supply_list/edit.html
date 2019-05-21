@@ -1,0 +1,152 @@
+   <div class="tpl-content-wrapper">
+  <div class="row-content am-cf">
+
+
+                <div class="row">
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">供应商信息审核</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body am-fr">
+
+                                <form action="" method="post" class="am-form tpl-form-line-form">
+                                    <input type="hidden" value="{$spRes.id}" name="id">
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">供应商姓名 <span class="tpl-form-line-small-title">Name</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入标题文字" value="{$spRes.sp_name}" name="sp_name">
+                                            <small>修改供应商姓名</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="user-email" class="am-u-sm-3 am-form-label">供应商电话 <span class="tpl-form-line-small-title">Phone</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input " placeholder="供应商电话"   value="{$spRes.sp_phone}" name="sp_phone">
+                                            <small>供应商电话变更</small>
+                                        </div>
+                                    </div>
+
+                                      <div class="am-form-group">
+                                        <label for="user-email" class="am-u-sm-3 am-form-label">供应商邮箱 <span class="tpl-form-line-small-title">Email</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="am-form-field tpl-form-no-bg" placeholder="供应商邮箱" value="{$spRes.sp_email}" name="sp_email">
+                                            <small>供应商邮箱变更</small>
+                                        </div>
+                                    </div>
+
+     <!--                                <div class="am-form-group">
+                                        <label for="user-phone" class="am-u-sm-3 am-form-label">作者 <span class="tpl-form-line-small-title">Author</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select data-am-selected="{searchBox: 1}" style="display: none;">
+  <option value="a">-The.CC</option>
+  <option value="b">夕风色</option>
+  <option value="o">Orange</option>
+</select>
+
+                                        </div>
+                                    </div>
+ -->
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">收货地址 <span class="tpl-form-line-small-title">Address</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text"  value="{$spRes.sp_address}" name="sp_address">
+                                        </div>
+                                    </div>
+
+
+                                  <!--   <div class="am-form-group">
+                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图 <span class="tpl-form-line-small-title">Images</span></label>
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
+                                                <div class="tpl-form-file-img">
+                                                    <img src="assets/img/a5.png" alt="">
+                                                </div>
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+    <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
+                                                <input id="doc-form-file" type="file" multiple="">
+                                            </div>
+
+                                        </div>
+                                    </div>
+ -->
+
+
+
+
+    <div class="am-form-group">
+                <label for="user-phone" class="am-u-sm-3 am-form-label">供应商类别  <span class="tpl-form-line-small-title">Cate</span></label>
+                <div class="am-u-sm-9">
+                <select name="sp_cate_id" data-am-selected="{searchBox: 1}" style="display:none;" name="pdt_cate_id">
+    {volist name="cateRes" id="vo"}
+              <option value="{$vo.id}"{if condition="$vo['id'] eq $spRes['cate']['id']"}selected="selected"{/if}>{$vo.cate_name}</option>
+            
+    {/volist}
+                </select>
+
+            </div>
+        </div>
+
+
+
+
+                                    <div class="am-form-group">
+                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">供应商积分 <span class="tpl-form-line-small-title">Score</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" id="user-weibo" placeholder="请添加分类用点号隔开" value="{$spRes.sp_score}" name="sp_score">
+                                            <div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                              <!--       <div class="am-form-group">
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">隐藏文章</label>
+                                        <div class="am-u-sm-9">
+                                            <div class="tpl-switch">
+                                                <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" checked="">
+                                                <div class="tpl-switch-btn-view">
+                                                    <div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> -->
+
+                                    <div class="am-form-group">
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">供应商资质
+                                        <span class="tpl-form-line-small-title">Qualify</span></label>
+                                        <div class="am-u-sm-9">
+                                            <textarea class="" rows="10" id="user-intro" placeholder="" name="sp_desc">{$spRes.sp_desc}</textarea>
+                                        </div>
+                                    </div>
+<div class="am-form-group">
+<label for="user-phone" class="am-u-sm-3 am-form-label">审核情况 <span class="tpl-form-line-small-title">Check</span></label>
+<div class="am-u-sm-9">
+    <select data-am-selected="{searchBox: 1}" style="display: none;" name='sp_checked'>
+          <option value="0" {if condition="$spRes['sp_checked'] eq 0"}selected="selected"{/if}>待审核</option>
+          <option value="1"{if condition="$spRes['sp_checked'] eq 1"}selected="selected"{/if}>审核通过</option>
+          <option value="2"{if condition="$spRes['sp_checked'] eq 2"}selected="selected"{/if}>未通过审核</option>
+</select>
+
+    </div>
+</div>
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

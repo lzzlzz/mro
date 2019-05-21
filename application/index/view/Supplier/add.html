@@ -6,7 +6,7 @@
 					<div class="user-info">
 						<!--标题 -->
 						<div class="am-cf am-padding">
-							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">会员注册</strong> / <small>Personal&nbsp;information</small></div>
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">成为供应商</strong> / <small>Personal&nbsp;information</small></div>
 						</div>
 						<hr/>
 
@@ -43,9 +43,9 @@
 							
 
 								<div class="am-form-group">
-									<label for="user-name" class="am-form-label">用户姓名</label>
+									<label for="user-name" class="am-form-label">供应商名称</label>
 									<div class="am-form-content">
-										<input type="text" id="user-name2" placeholder="name" name="cus_name">
+										<input type="text" id="user-name2" placeholder="name" name="sp_name">
 
 									</div>
 								</div>
@@ -65,12 +65,27 @@
 									</div>
 								</div> -->
 
+								
 								<div class="am-form-group">
-									<label for="user-birth" class="am-form-label">收货地址</label>
+									<label for="user-phone" class="am-form-label">电话</label>
+									<div class="am-form-content">
+										<input id="user-phone" placeholder="telephonenumber" type="tel" name="sp_phone">
+
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-form-label">电子邮件</label>
+									<div class="am-form-content">
+										<input id="user-email" placeholder="Email" type="email" name="sp_email">
+
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-birth" class="am-form-label">联系地址</label>
 									<div class="am-form-content birth">
-										<input type="text" name="cus_address"/>
+										<input type="text" placeholder="Address"name="sp_address"/>
 										<!-- <div class="birth-select">
-											<select data-am-selected name="cus_address">
+											<select data-am-selected name="sp_address">
 												<option value="a">2015</option>
 												<option value="b">1987</option>
 											</select>
@@ -91,21 +106,28 @@
 
 									</div> 							
 								</div>
+
+<div class="am-form-group">
+            <label for="user-phone" class=" am-form-label">经营类型 </label>
+           <div class="am-form-content">
+            <select name="sp_cate_id">
+    {volist name="cateRes" id="vo"}
+              <option value="{$vo.id}">{$vo.cate_name}</option>
+            
+    {/volist}
+            </select>
+
+        </div>
+    </div>
 								<div class="am-form-group">
-									<label for="user-phone" class="am-form-label">电话</label>
+									<label for="user-email" class="am-form-label">资质介绍</label>
 									<div class="am-form-content">
-										<input id="user-phone" placeholder="telephonenumber" type="tel" name="cus_phone">
+										<textarea id="user-email" placeholder="请介绍贵公司资质" type="email" name="sp_desc"></textarea> 
 
 									</div>
 								</div>
-								<div class="am-form-group">
-									<label for="user-email" class="am-form-label">电子邮件</label>
-									<div class="am-form-content">
-										<input id="user-email" placeholder="Email" type="email" name="cus_email">
 
-									</div>
-								</div>
-								<!-- <div class="am-form-group address" style="display: block;">
+						<!-- 		<div class="am-form-group address" style="display: block;">
 									<label for="user-address" class="am-form-label">收货地址</label>
 									<div class="am-form-content address">
 										<a href="address.html">

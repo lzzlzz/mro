@@ -1,0 +1,131 @@
+
+
+
+
+
+
+
+<div class="tpl-content-wrapper">
+  <div class="row-content am-cf">
+
+  <div class="row">
+
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">增加供货单</div>
+                                <div class="widget-function am-fr">
+<div style="float: left;">
+选择供应商：
+ <select id="user-name"  class="tpl-form-input"  name='sl_sp_id'>
+{volist name="supplierRes" id="vo"}
+                    <option value="{$vo.id}">{$vo.sp_name}</option>
+{/volist}                   
+</select>
+</div>
+
+     
+   
+                                    <button id="addtr" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                    <button id="deletetr" type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                    <div class="widget-body  widget-body-lg am-fr">
+
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                                    <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>产品名称</th>
+                                            <th>单价</th>
+                                            <th>数量</th>
+                                            <th>总价</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="otb">
+        <tr id="otr" class="gradeX">
+                                            <td class="td"></td>
+                                            <td>
+                                                
+
+<select  class="tpl-form-input pdt" data-am-selected="{searchBox: 1}" style="display: none;" name='slt_pdt_id'>
+{volist name="pdtRes" id="vo"}
+                    <option value="{$vo.id}">{$vo.pdt_name}</option>
+{/volist}                   
+</select>
+   
+
+                                            </td>
+                                            <td>
+                                            
+                                                <input style="border:none; " class="text_box"  type="text" name="slt_price"/>
+                                         
+                                            </td>
+                                            <td>
+                                                <div class="sl">
+                                                    <input class="min am-btn" name="" type="button" value="-" />
+                                                    <input class="text_box" name="" type="text" value="3" style="width:30px;" />
+                                                    <input class="add am-btn" name="" type="button" value="+" />
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <input class="text_box"  type="text" name="slt_total__amount"/>
+                                            </td>
+                                        </tr>
+                                     
+                                        <!-- more data -->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+            </div>
+  
+
+
+
+
+
+
+       </div>
+
+<script type="text/javascript">
+    var jsonRes={$jsonRes};
+   // console.log(jsonRes);
+    var i = 1;
+      $(".td").each(function(){
+          $(this).html(i++);
+      });
+    $('#addtr').click(function(){
+       var ntr=$('#otr').clone();/*复制上一行*/
+       $('#otb').append(ntr);/*添加到下一行*/
+       var i = 1;/*给每一行一个序号*/
+      $(".td").each(function(){
+          $(this).html(i++);
+      });
+     /* 因为是完全复制上一行的html代码 所以要把上一行的值清空 并且要给select列表赋值循环出新的选项*/
+      $("tbody tr:last").find(":input").val('');
+      for(var i=0;i<jsonRes.length;i++){
+       console.log($('.pdt'));
+        $('.pdt:eq(2)').append("<option value='0'>1</option>");
+      }
+     
+    });
+    $('#deletetr').click(function(){
+     /* 有个问题就是只能删到剩下两个*/
+        $('tbody tr:not(:first):not(:first):last').remove();
+    });
+</script>
