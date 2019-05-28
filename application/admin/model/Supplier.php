@@ -12,5 +12,10 @@ class Supplier extends Model
 		return self::with('cate')->find($id);
 	}
 
+	//供应商与供货单有一对多的关系
+	public function supplyList(){
+		return $this->hasMany('SupplyList','sl_sp_id','id');
+	}
+
 
 }

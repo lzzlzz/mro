@@ -58,7 +58,8 @@ class Product extends Controller
         // }
        // dump($cateRes);die();
       $pdt=new model\Product;
-      $pdtRes=$pdt::with('cate')->paginate(2);
+      $pdtRes=$pdt::with('cate')->paginate(10);
+      //dump($pdtRes[0]);die();
     	$this->assign([
     		'pdtRes'=>$pdtRes,
     	]);
@@ -76,7 +77,8 @@ class Product extends Controller
     	]);
     	if(request()->isPost()){
     		$data=input('post.');
-    		$res=db('customer')->update($data);
+      //  dump($data);die();
+    		$res=db('product')->update($data);
     		if($res){
     			$this->success('用户信息修改成功',url('lst'));
     		}else{

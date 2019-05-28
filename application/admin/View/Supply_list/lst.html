@@ -4,7 +4,7 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">供应商列表</div>
+                                <div class="widget-title  am-cf">供货单列表</div>
 
 
                             </div>
@@ -48,25 +48,26 @@
                                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                         <thead>
                                             <tr>
+                                                <th>供货单编号</th>
                                                 <th>供应商编号</th>
-                                                <th>姓名</th>
-                                                <th>电话</th>
-                                                <th>邮箱</th>
-                                                <th>积分</th>
-                                                <th>所属类别</th>
+                                                <th>供应商名称</th>
+                                                
+                                                <th>供货单总额</th>
+                                                <th>下单时间</th>
+                                             
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
        
-   {volist name="spRes" id="vo"}
+   {volist name="slRes" id="vo"}
         <tr class="even gradeC">
-            <td>{$vo.sp_num}</td>
-            <td>{$vo.sp_name}</td>
-            <td>{$vo.sp_phone}</td>
-            <td>{$vo.sp_email}</td>
-            <td>{$vo.sp_score}</td>
-            <td>{$vo.cate.cate_name}</td>
+            <td>{$vo.sl_num}</td>
+            <td>{$vo.supplier.sp_num}</td>
+            <td>{$vo.supplier.sp_name}</td>
+           
+            <td>{$vo.sl_total_amount}</td>
+            <td>{$vo.sl_addtime|date="Y年m月d日",###}</td>
             <td>
                 <div class="tpl-table-black-operation">
                     <a href="{:url('edit',array('id'=>$vo['id']))}">
@@ -87,7 +88,7 @@
                                 <div class="am-u-lg-12 am-cf">
 
                                     <div class="am-fr">
-                                        {$spRes->render()}
+                                        {$slRes->render()}
                                     </div>
                                 </div>
                             </div>

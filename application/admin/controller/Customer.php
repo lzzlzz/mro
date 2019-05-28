@@ -1,11 +1,15 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
+use app\admin\Model\Customer as CustomerModel;/*这个错误太低级了 
+还是基础不牢 引入的应该是！！！admin下的model！！！不是think下的model*/
 class Customer extends Controller
 {
     public function lst()
-    {
-    	$cusRes=db('customer')->paginate(2);
+    {  /* 参照关系没有错 没有数据是因为在客户的分类id中出现了不在分类id中的情况*/
+       $cusRes=CustomerModel::with('customerClass')->paginate(2);
+      
+    	//$cusRes=model('customer')->paginate(2);
     	$this->assign([
     		'cusRes'=>$cusRes,
     	]);

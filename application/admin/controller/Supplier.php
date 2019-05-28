@@ -7,7 +7,7 @@ class Supplier extends Controller
     public function lst()
     {
         $sp=new model\Supplier;
-        $spRes=$sp::with('cate')->paginate(2);
+        $spRes=$sp::with('cate')->paginate(5);
     	//$spRes=db('supplier')->paginate(2);
     	$this->assign([
     		'spRes'=>$spRes,
@@ -34,9 +34,9 @@ class Supplier extends Controller
     		$data=input('post.');
     		$res=db('supplier')->update($data);
     		if($res){
-    			$this->success('供应商信息审核成功',url('lst'));
+    			$this->success('供应商信息审核结果提交成功',url('lst'));
     		}else{
-    			$this->error('供应商信息审核失败');
+    			$this->error('供应商信息审核结果提交失败');
     		}
     	}
     	return view();

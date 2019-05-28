@@ -6,7 +6,7 @@ class SupplyList extends Controller
 {
     public function add(){
         //获取系统中全部供应商
-        $supplierRes=db('supplier')->select();
+        $supplierRes=db('supplier')->where('sp_checked','=',1)->select();
         //获取所有产品
         $pdtRes=db('product')->select();
         $jsonRes=json_encode($pdtRes);
@@ -16,15 +16,52 @@ class SupplyList extends Controller
             'jsonRes'=>$jsonRes,
 
         ]);
+        if(request()->isPost()){
+            $data=input('post.');
+           // dump($data);die();
+            $sl=new model\SupplyList;
+            $sl->sl_num='SL'.time();
+            $sl->sl_addtime=time();
+            $sl->sl_sp_id=$data['sl_sp_id'];
+            //根据各项的总价加总供货单总价
+            $a=0;
+            foreach ($data['slt_total_amount'] as $k => $v) {
+                $a+=(double)$v;
+            }
+            $sl->sl_total_amount=$a;
+            //将单项对应的数组转化成 各数组中的一项组合数组
+            static $arr=[];
+            foreach ($data as $key => $value) {
+                if($key!='sl_sp_id'){
+                    $i=0;
+                    foreach ($value as $k => $v) {
+                        $arr[$i++][$key]=$v;
+                    }
+                }
+            }
+           // dump($arr);die();
+           // 将主供货单信息插入 并返回id
+            $sl->save();
+            $uid=$sl->id;
+            $sl=$sl::find($uid);
+
+            /*用find找到刚插入的那条订单 好像如果用get也不会再次插入新的那么刚才总表为什么会插入两次呢*/
+            $res=$sl->supItem()->saveAll($arr);
+            if($res){
+                $this->success('供货单信息添加成功',url('lst'));
+            }else{
+                $this->error('供货单信息添加失败');
+            }
+        }
         return view();
     }
     public function lst()
     {
-        $sp=new model\Supplier;
-        $spRes=$sp::with('cate')->paginate(2);
+        $sl=new model\SupplyList;
+        $slRes=$sl::with('Supplier')->paginate(2);
     	//$spRes=db('supplier')->paginate(2);
     	$this->assign([
-    		'spRes'=>$spRes,
+    		'slRes'=>$slRes,
     	]);
        return view();
     }
@@ -64,5 +101,35 @@ class SupplyList extends Controller
 			$this->error('用户信息删除失败');
 		}
     }
-  
+    //处理前端的ajax请求
+   public function getpdt()
+    { 
+        //获取供应商id
+        $spId= intval(input('post.spId')); 
+        //根据供应商id找一级分类
+        $cateID=db('supplier')->field('sp_cate_id')->find($spId);
+       // dump($cateID);die();
+        //根据一级分类找该分类下对应的所有分类
+        $cate=new model\Cate;
+        //此处使用ORM一对多连表查询 大大简化步骤 直接在找分类的时候把产品一并找出
+        //不需要先找所有分类 在根据分类找产品
+        $data=$cate::with('product')->select();
+        //dump($data['relation']);die();
+        $pdtArr=$this->sortcate($data,$cateID['sp_cate_id']);
+        exit(json_encode($pdtArr)); 
+    }
+
+
+//这个方法是递归的找某一个分类其下的所有子类
+        public function sortcate($data,$pid){
+            static $arr=[];
+            foreach ($data as $k => $v) { //找顶级栏目  v是他的值
+                if ($v['pid']==$pid) {//如果是顶级栏目就将其放进数组里
+                    $arr[]=$v;
+                    $this->sortcate($data,$v['id']);//找到顶级栏目后找其他栏目
+                }
+            }
+            return $arr;
+        }
+
 }

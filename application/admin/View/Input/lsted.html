@@ -1,10 +1,10 @@
-   <div class="tpl-content-wrapper">
+ <div class="tpl-content-wrapper">
             <div class="row-content am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">产品列表</div>
+                                <div class="widget-title  am-cf">入库单列表</div>
 
 
                             </div>
@@ -14,7 +14,7 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <a href="{:url('add')}" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
+                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
@@ -45,52 +45,49 @@
                                 </div>
 
                                 <div class="am-u-sm-12">
-                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                         <thead>
                                             <tr>
-                                                <th>产品缩略图</th>
-                                                <th>产品编号</th>
-                                                <th>产品名称</th>
-                                                <th>产品类别</th>
+                                                <th>入库单编号</th>
+                                                <th>供货单编号</th>
+                                                <th>供应商名称</th>
+                                                <th>供货单总额</th>
+                                                <th>入库时间</th>
+                                             
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-    {volist name="pdtRes" id="vo"}
-                                            <tr class="gradeX">
-                                                <td>
-                                                 
-    {if condition="$vo['pdt_pic'] neq null"}
-          <img src="__uploads__/{$vo.pdt_pic}" class="tpl-table-line-img" />
-    {else/}
-          <span>暂无图片</span>
-    {/if}                                                    
-                                                </td>
-            <td class="am-text-middle">{$vo.pdt_num}</td>
-            <td class="am-text-middle">{$vo.pdt_name}</td>
-        <td class="am-text-middle">{$vo['cate']['cate_name']}</td>
-                <td class="am-text-middle">
-                    <div class="tpl-table-black-operation">
-                        <a href="{:url('edit',array('id'=>$vo['id']))}">
-                            <i class="am-icon-pencil"></i> 编辑
-                        </a>
-                        <a  href="{:url('del',array('id'=>$vo['id']))}" class="tpl-table-black-operation-del">
-                            <i class="am-icon-trash"></i> 删除
-                        </a>
-                    </div>
-                </td>
-            </tr>
-{/volist}                                    
-                        
-
-                                            <!-- more data -->
+       
+   {volist name="insRes" id="vo"}
+        <tr class="even gradeC">
+            <td>{$vo.in_num}</td>
+            <td>{$vo.supply_list.sl_num}</td>
+            <td>{$spArr[$vo['supply_list']['sl_sp_id']]}</td>
+           
+            <td>{$vo.supply_list.sl_total_amount}</td>
+            <td>{$vo.in_time|date="Y年m月d日",###}</td>
+            <td>
+                <div class="tpl-table-black-operation">
+                    <a href="{:url('edit',array('id'=>$vo['id']))}">
+                        <i class="am-icon-pencil"></i> 入库
+                    </a>
+                    <a onClick="return confirm('确定删除?');" href="{:url('del',array('id'=>$vo['id']))}" class="tpl-table-black-operation-del">
+                        <i class="am-icon-trash"></i> 删除
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {/volist}
+        <!-- more data -->
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <div class="am-u-lg-12 am-cf">
 
                                     <div class="am-fr">
-                                       {$pdtRes->render()}
+                                        {$insRes->render()}
                                     </div>
                                 </div>
                             </div>
@@ -99,3 +96,6 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+
