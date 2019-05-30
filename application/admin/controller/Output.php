@@ -4,38 +4,35 @@ use think\Controller;
 use think\Db;
 use think\Exception;
 use app\admin\model;
-class Input extends Controller
+class Output extends Controller
 {
     public function lst()
-    {
-     $slModel=new model\SupplyList;
-
-    $slRes=$slModel::with('Supplier')->where('sl_storage','=',0)->paginate(5);
-       
-    $this->assign([
-    	'slRes'=>$slRes,
-    ]);
+    {  
+        $orderRes=model('Order')->getCusOrder();
+        $this->assign([
+            'orderRes'=>$orderRes,
+        ]);
        return view();
     }
     public function lsted(){
-        $insModel=new model\InStorage;
-        $insRes=$insModel::with('SupplyList')->paginate(4);
-       // dump($insRes[0]['supply_list']);die();
+        $outModel=new model\OutStorage;
+        $outRes=$outModel::with('Order')->paginate(4);
+       // dump($outRes[0]['supply_list']);die();
        // 根据入库单中关联的供货单中的供应商id找到供应商姓名 //不知道如何嵌套关联所以现在只能这么写
-        $sprRes=db('supplier')->field(['id','sp_name'])->select();
+        $sprRes=db('customer')->field(['id','cus_name'])->select();
         static $arr=[];
         foreach ($sprRes as $key => $value) {
-            $arr[$value['id']]=$value['sp_name'];
+            $arr[$value['id']]=$value['cus_name'];
         }
         $this->assign([
-            'insRes'=>$insRes,
-            'spArr'=>$arr,
+            'outRes'=>$outRes,
+            'cusArr'=>$arr,
         ]);
         return view();
     }
     public function edit($id){
-        $supList=new model\SupplyList;
-        $itemRes=$supList::with('supItem')->find($id);
+        $order=new model\Order;
+        $itemRes=$order::with('orderItem')->find($id);
        // dump($itemRes['sup_item']);die();
     	$pdtRes=db('product')->field(['id','pdt_name'])->select();
         static $pdtArr=[];
@@ -46,17 +43,17 @@ class Input extends Controller
         //volist的循环可以嵌套 
         $whRes=db('warehouse')->field(['id','wh_name'])->select();
     	$this->assign([
-    		'itemRes'=>$itemRes['sup_item'],
+    		'itemRes'=>$itemRes['order_item'],
             'pdtArr'=>$pdtArr,
             'whRes'=>$whRes,
     	]);
-        // dump($itemRes['sup_item']);die();
+        // dump($itemRes['order_item']);die();
     	if(request()->isPost()){
     		$data=input('post.');
            // dump($data);die();
             static $arr=[];//把前端提交过来的变量转化为合适的数组形式
             foreach ($data as $key => $value) {
-                if($key!='in_sl_id'){
+                if($key!='out_order_id'){
                     $i=0;
                     foreach ($value as $k => $v) {
                         $arr[$i++][$key]=$v;
@@ -71,41 +68,61 @@ try{
     $ivt=db('inventory');
     //对数组中每条数据进行处理
     foreach ($arr as $k => $v) {
-        $flag=$ivt->where('ivt_pdt_id','=',$v['ivt_pdt_id'])->select();
+        $oivt=$ivt->where('ivt_pdt_id','=',$v['order_pdt_id'])->find();
       // dump($flag);die();
         /**
-         * 对于要送入库存表中的每条记录 先判断表中是否存在如果存在则合*并数量生成新价格使用原仓库如果不存在则新增
+         * 对于订单中的每个产品，先搜索库存记录 然后将已有库存与订单量进行对比
+         * 如果库存量大于等于订单量则发货 小于订单量则产生缺货订单
          */
-        if($flag!=null){//对已有的更新数量与价格
-            $flag[0]['ivt_original_cost']=$this->price($flag[0]['ivt_original_cost'],$flag[0]['ivt_quantity'],$v['ivt_original_cost'],$v['ivt_quantity']);
-            //dump($flag[0]['ivt_original_cost']);die();
-            $flag[0]['ivt_quantity']+=$v['ivt_quantity'];
-            $res[$k]=$ivt->update($flag[0]);
-        }else{//对没有的进行插入
-            $res[$k]=$ivt->insert($v);
+        $stockOut['sko_quantity']=intval($v['order_quantity'])-intval($oivt['ivt_quantity']);
+        if($stockOut['sko_quantity']<=0){//库存量满足订单量
+           
+            $oivt['ivt_quantity']-=$v['order_quantity'];
+            $res[$k]=$ivt->update($oivt);
+        }else{//库存量不足 存入缺货单  抛出缺货异常 
+           $need=intval($v['order_quantity']);
+           throw new Exception('订单产品断货');
         }
     }
-   
-    //在入库流水账中记录
-    $inStorage=[
-        'in_num'=>'IS'.time(),
-        'in_sl_id'=>$data['in_sl_id'],
-        'in_time'=>time(),
-    ];
     
-    $lastId=db('in_storage')->insertGetId($inStorage);
+    //在出库流水账中记录
+    $outStorage=[
+        'out_num'=>'OS'.time(),
+        'out_order_id'=>$data['out_order_id'],
+        'out_time'=>time(),
+    ];
+    $lastId=db('out_storage')->insertGetId($outStorage);
     $res[]=$lastId;
-     //将供货单状态变更入库后把入库单id存入供货单
-    $res[]=db('supply_list')->where('id',$data['in_sl_id'])->update(['sl_storage'=>$lastId]);
     //dump($res);die();
+    //将供货单状态变更
+    $res[]=db('order')->where('id',$data['out_order_id'])->update(['order_delivery'=>$lastId]);
     if(in_array('0', $res)){
-        throw new Exception('供货单入库失败');
+        throw new Exception('订单出库失败');
         
     }
     Db::commit();
-    $this->success('供货单入库成功',url('lsted'));
+    $this->success('订单出库成功',url('lsted'));
 }catch (Exception $e){
     Db::rollback();
+    //处理缺货异常 生成缺货单
+    //如果缺货的产品id已经在缺货单中存在   ！！！而且尚未供货这个等候完善！！！
+    $flag=db('stockout')->where('sko_pdt_id',$v['order_pdt_id'])->find();
+    if($flag!=null){//说明缺货单中已存在 则将数量加上 对于更新的这种应该直接加订单量
+        $flag['sko_quantity']+=$need;
+        $ores=db('stockout')->update($flag);
+    }else{//对于新插入的缺货记录 缺货量是订单量-库存量
+        $stockOut['sko_pdt_id']=$v['order_pdt_id'];
+        $stockOut['sko_num']="SKO".time();
+        $stockOut['sko_addtime']=time();
+        $ores=db('stockout')->insert($stockOut);
+    }
+    
+    if($ores){
+        $this->success('缺货单已生成，请及时补货',url('stockout/lst'));
+    }else{
+        $this->error('缺货单生成失败，请手动补货');
+    }
+    
     $this->error($e);//事务验证成功就是失败后会抛出一堆错误
 }
     	// 	if($res1 && $res2){

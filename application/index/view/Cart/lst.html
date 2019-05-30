@@ -40,7 +40,7 @@
 								<ul class="item-content clearfix">
 									<li class="td td-chk">
 										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170769542747" name="items[]" value="170769542747" type="checkbox">
+											<input class="check" id="{$vo.id}" name="items[]" value="170769542747" type="checkbox" onclick="checkboxOnclick(this)">
 											<label for="J_CheckBox_170769542747"></label>
 										</div>
 									</li>
@@ -50,6 +50,7 @@
 												<img style="width: 80px;height: 80px;" src="__uploads__/{$vo.product.pdt_pic}" class="itempic J_ItemImg"></a>
 										</div>
 										<div class="item-info">
+				<input type="hidden" id="pdt-{$vo.id}" value="{$vo.cart_pdt_id}"/>
 											<div class="item-basic-info">
 												<a href="#" target="_blank" title="{$vo.product.pdt_name}" class="item-title J_MakePoint" data-point="tbcart.8.11">{$vo.product.pdt_name}</a>
 											</div>
@@ -86,11 +87,11 @@
 			</div>
 		</div>
 	</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em  tabindex="0" class="J_ItemSum number"><span id="total-{$vo.id}"></span></em>
-										</div>
-									</li>
+<li class="td td-sum">
+	<div class="td-inner">
+		<em  tabindex="0" class="J_ItemSum number"><span id="total-{$vo.id}">{$vo['cart_price']*$vo['cart_quantity']}</span></em>
+	</div>
+</li>
 									<li class="td td-op">
 										<div class="td-inner">
 											<a title="移入收藏夹" class="btn-fav" href="#">
@@ -120,21 +121,21 @@
 						<a href="#" hidefocus="true" class="J_BatchFav">移入收藏夹</a>
 					</div>
 					<div class="float-bar-right">
-						<div class="amount-sum">
+						<!-- <div class="amount-sum">
 							<span class="txt">已选商品</span>
 							<em id="J_SelectedItemsCount">0</em><span class="txt">件</span>
 							<div class="arrow-box">
 								<span class="selected-items-arrow"></span>
 								<span class="arrow"></span>
 							</div>
-						</div>
+						</div> -->
 						<div class="price-sum">
 							<span class="txt">合计:</span>
-							<strong class="price">¥<em id="J_Total">0.00</em></strong>
+							<strong class="price">¥<em id="total">0.00</em></strong>
 						</div>
 						<div class="btn-area">
-							<a href="pay.html" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
-								<span>结&nbsp;算</span></a>
+							<a href="javascript:;" id="pay" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
+								<span >结&nbsp;算</span></a>
 						</div>
 					</div>
 
@@ -146,11 +147,9 @@
     }
     
 	function catchChange(id){
-		//console.log($('#qty-'+id).val());
 		 
 		 var nqty=parseInt($('#qty-'+id).val());
-		 //console.log(nqty);
-		 /*如果数量发生了改变 同样的错误重复犯 js中不要用//加注释 会报找不到函数的错*/
+		
 		 if(nqty !== qty){
 		 	console.log(nqty);
 		 	console.log(qty);
@@ -169,10 +168,13 @@
 	function minqty(id){
 
 		var qty=parseInt($('#qty-'+id).val());
-		var price=parseFloat($('#price-'+id).text());
-		//console.log($('#price-'+id).text());
-		$('#total-'+id).text((qty-1)*price);
-		//alert(1);
+		if(qty>0){
+			var price=parseFloat($('#price-'+id).text());
+			//console.log($('#price-'+id).text());
+			$('#total-'+id).text((qty-1)*price);
+			//alert(1);
+		}
+		
 	}
 	function addqty(id){
 
@@ -182,6 +184,49 @@
 		$('#total-'+id).text((qty+1)*price);
 		//alert(1);
 	}
+	var checkedId=new Array();
+    function checkboxOnclick(checkbox){
+    	var oid=checkbox.id;
+    	checkedId.push(checkbox.id);
+    	var totalPrice=parseFloat($('#total').text());
+    	if(checkbox.checked===true){
+    		//alert(checkbox.id);
+    		
+    		$('#total').text(totalPrice+parseFloat($("#total-"+oid).text()));
+    	}else{
+    		$('#total').text(totalPrice-parseFloat($("#total-"+oid).text()));
+    	}
+    }
+    $('#pay').click(function(){
+    	//console.log(checkedId);
+    	
+    	
+    	//console.log(odata);
+    	//console.log(data);
+    	var url="{:url('Cart/pay')}";
+    	var data={};
+    	data.orderItem=[];
+    	data.ordetTotalCost=parseFloat($('#total').text());
+    	data.cartId=checkedId;
+    	var odata={};
+    	$.each(checkedId,function(k,v){
+    		odata.odt_pdt_id=parseInt($('#pdt-'+v).val());
+    		odata.odt_num=parseInt($('#qty-'+v).val());
+    		odata.odt_price=parseFloat($('#price-'+v).text());
+    		data.orderItem.push(odata);
+    		odata={};
+    	});
+    	var success=function(response){
+    		if(response.errno===0){
+    			 alert('您的订单会及时发货，欢迎继续购买~');
+    			 window.location.replace("{:url('product/lst')}");
+    			
 
+    		}else{
+    			alert('结算失败请再次下单');
+    		}
+    	};
+    	$.post(url,data,success,'json');
 
+    });
 </script>			

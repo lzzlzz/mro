@@ -172,6 +172,7 @@
              url: "{:url('getpdt')}",
              data: "spId="+a,
              success: function (data) {
+             // console.log(data);
                  $("#pdt").html("<option value=''>请选择产品</option>");
                  //对返回的分类进行遍历
                  $.each(data, function(i, item) {

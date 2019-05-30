@@ -8,4 +8,8 @@ class Customer extends Model
 		return $this->belongsto('CustomerClass','cus_cls_id','id');
 	}
 
+	public function order(){
+		return $this->hasMany('Order','order_cus_id','id');
+	}
+
 }

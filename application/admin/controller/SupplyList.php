@@ -1,6 +1,8 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
+use think\Db;
+use think\Exception;
 use app\admin\model;
 class SupplyList extends Controller
 {
@@ -41,17 +43,25 @@ class SupplyList extends Controller
             }
            // dump($arr);die();
            // 将主供货单信息插入 并返回id
-            $sl->save();
-            $uid=$sl->id;
-            $sl=$sl::find($uid);
+            try{
+                Db::startTrans();
+                static $res=[];
+                $res[]=$sl->save();
+                $uid=$sl->id;
+                $sl=$sl::find($uid);
 
-            /*用find找到刚插入的那条订单 好像如果用get也不会再次插入新的那么刚才总表为什么会插入两次呢*/
-            $res=$sl->supItem()->saveAll($arr);
-            if($res){
+                /*用find找到刚插入的那条订单 好像如果用get也不会再次插入新的那么刚才总表为什么会插入两次呢*/
+                $res[]=$sl->supItem()->saveAll($arr);
+                if(in_array('0', $res)!=null){
+                    throw new Exception('供货单添加失败');
+                }
+                Db::commit();
                 $this->success('供货单信息添加成功',url('lst'));
-            }else{
+            }catch(Exception $e){
+                Db::rollback();
                 $this->error('供货单信息添加失败');
             }
+            
         }
         return view();
     }

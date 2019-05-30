@@ -11,6 +11,9 @@ class Product extends Model
 	public function getCateById($id){
 		return self::with('cate')->find($id);
 	}
+	public function inventory(){
+		return $this->hasone('inventory','ivt_pdt_id','id');
+	}
 
 
 }

@@ -1,6 +1,8 @@
 <?php
 namespace app\index\controller;
 use think\Controller;
+use think\Db;
+use think\Exception;
 use app\index\model;
 class Cart extends Base
 {
@@ -72,4 +74,47 @@ class Cart extends Base
         }
        
     }
+
+    //结算功能
+    public function pay(){
+       // dump(input('post.'));die();
+        $data=input('post.');
+        $order['order_cus_id']=session('uid');
+        $order['order_total_cost']=$data['ordetTotalCost'];
+        $order['order_num']='O'.time();
+        $order['order_addtime']=time();
+try{
+    Db::startTrans();
+    static $res=[];
+    $orderModel=new model\Order;
+    $res[]=$orderModel->save($order);
+    $uid=$orderModel->id;
+    $orderModel=$orderModel::find($uid);
+    $res[]=$orderModel->orderItem()->saveAll($data['orderItem']);
+    //添加完订单后 要把购物车中对应的清空
+    $res[]=db('cart')->delete($data['cartId']);
+    if(in_array('0', $res)){
+        throw new Exception('购买失败');
+        
+    }
+    Db::commit();
+    $response=[
+            'errno'=>0,
+            'errmsg'=>'success',
+            'data'=>true,
+        ];
+   
+}catch (Exception $e){
+    Db::rollback();
+    $response=[
+              'errno'=>1,
+              'errmsg'=>'fail',
+              'data'=>$e,
+             ];//事务验证成功就是失败后会抛出一堆错误
+}
+  exit(json_encode($response));      
+      
+      
+    }
+
 }
