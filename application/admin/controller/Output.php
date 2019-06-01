@@ -4,16 +4,21 @@ use think\Controller;
 use think\Db;
 use think\Exception;
 use app\admin\model;
-class Output extends Controller
+class Output extends Base
 {
+    //找出订单中未出库的
     public function lst()
     {  
-        $orderRes=model('Order')->getCusOrder();
+        //传入需要查询的条件 只筛选出未出库的 
+        $map=['order_delivery'=>0];
+        $orderRes=model('Order')->getCusOrder($map);
         $this->assign([
             'orderRes'=>$orderRes,
         ]);
+      //  dump($orderRes);die();
        return view();
     }
+    //已出库列表 从out_storage 中显示 一个出库单对应一个订单
     public function lsted(){
         $outModel=new model\OutStorage;
         $outRes=$outModel::with('Order')->paginate(4);
@@ -105,8 +110,12 @@ try{
 }catch (Exception $e){
     Db::rollback();
     //处理缺货异常 生成缺货单
-    //如果缺货的产品id已经在缺货单中存在   ！！！而且尚未供货这个等候完善！！！
-    $flag=db('stockout')->where('sko_pdt_id',$v['order_pdt_id'])->find();
+    //如果缺货的产品id已经在缺货单中存在 而且尚未补货
+    $map=[
+        'sko_pdt_id' => $v['order_pdt_id'],
+        'sko_rep_id' => 0,
+    ];
+    $flag=db('stockout')->where($map)->find();
     if($flag!=null){//说明缺货单中已存在 则将数量加上 对于更新的这种应该直接加订单量
         $flag['sko_quantity']+=$need;
         $ores=db('stockout')->update($flag);

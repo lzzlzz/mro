@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model;
-class Supplier extends Controller
+class Supplier extends Base
 {
     public function lst()
     {

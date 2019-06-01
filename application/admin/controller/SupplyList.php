@@ -4,7 +4,7 @@ use think\Controller;
 use think\Db;
 use think\Exception;
 use app\admin\model;
-class SupplyList extends Controller
+class SupplyList extends Base
 {
     public function add(){
         //获取系统中全部供应商
@@ -68,7 +68,7 @@ class SupplyList extends Controller
     public function lst()
     {
         $sl=new model\SupplyList;
-        $slRes=$sl::with('Supplier')->paginate(2);
+        $slRes=$sl::with('Supplier')->paginate(8);
     	//$spRes=db('supplier')->paginate(2);
     	$this->assign([
     		'slRes'=>$slRes,

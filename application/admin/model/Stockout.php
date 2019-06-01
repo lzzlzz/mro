@@ -12,5 +12,9 @@ class Stockout extends Model
 		return self::with('product')->paginate(10);
 	}
 
+	public function replenish(){
+		return $this->belongsto('Replenish','sko_rep_id','id');
+	}
+
 
 }

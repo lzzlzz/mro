@@ -14,10 +14,10 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                                <!-- <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                                 <th>订单总额</th>
                                                 <th>下单时间</th>
                                               
-                                                <th>操作</th>
+                                                <th>订单状态</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,17 +65,19 @@
             <td>{$vo.customer.cus_num}</td>
             <td>{$vo.customer.cus_name}</td>
             <td>{$vo.order_total_cost}</td>
-            <td>{$vo.order_addtime}</td>
+            <td>{$vo.order_addtime|date="Y年m月d日-H:i:s",###}</td>
 
             <td>
                 <div class="tpl-table-black-operation">
-                    <a href="{:url('edit',array('id'=>$vo['id']))}">
-                        <i class="am-icon-pencil"></i> 编辑
+                {if condition="$vo['order_finish'] eq 0"}
+                    <a href="{:url('affirm',array('id'=>$vo['id']))}">
+                        <i class="am-icon-pencil"></i> 待确认
                     </a>
-                    <a onClick="return confirm('确定删除?');" href="{:url('del',array('id'=>$vo['id']))}" class="tpl-table-black-operation-del">
-                        <i class="am-icon-trash"></i> 删除
-                    </a>
+                {else/}
+                     <i class="am-icon-pencil"></i> 已完成
+                 {/if}  
                 </div>
+                
             </td>
         </tr>
         {/volist}

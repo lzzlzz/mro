@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
-class Cate extends Controller
+class Cate extends Base
 {
     public function add(){
         $cateRes=model('Cate')->cateTree();

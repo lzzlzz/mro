@@ -7,9 +7,9 @@ class Order extends Model
 	public function customer(){
 		return $this->belongsto('Customer','order_cus_id','id');
 	}
-
-	public function getCusOrder(){
-		return self::with('customer')->paginate(10);
+//获取尚未出库的订单及其客户信息
+	public function getCusOrder($map=[]){
+		return self::with('customer')->where($map)->paginate(10);
 	}
 
 	//一个订单有多个子订单

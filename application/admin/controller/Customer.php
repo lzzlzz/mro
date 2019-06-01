@@ -3,7 +3,7 @@ namespace app\admin\controller;
 use think\Controller;
 use app\admin\Model\Customer as CustomerModel;/*这个错误太低级了 
 还是基础不牢 引入的应该是！！！admin下的model！！！不是think下的model*/
-class Customer extends Controller
+class Customer extends Base
 {
     public function lst()
     {  /* 参照关系没有错 没有数据是因为在客户的分类id中出现了不在分类id中的情况*/

@@ -12,4 +12,19 @@ class Inventory extends Model
 		return self::with('product')->paginate(10);
 	}
 
+	//为了获取饼状图
+	public function getIvt(){
+		
+		$ivtRes=self::with('product')->select();
+
+		static $arr=[];
+		foreach ($ivtRes as $k => $v) {
+			$arr[$v['product']['pdt_name']]=$v['ivt_quantity'];
+		}
+	   //dump($arr);die();
+	    return $arr;
+	}
+
+
+
 }

@@ -1,0 +1,117 @@
+     <div class="tpl-content-wrapper">
+
+            <div class="container-fluid am-cf">
+               <!--  <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 图表 <small>Amaze UI</small></div>
+                        <p class="page-header-description">图表组件使用的是 <a href="http://echarts.baidu.com">百度图表echarts</a>。</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                    </div>
+                </div>
+ -->
+            </div>
+
+            <div class="row-content am-cf">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-fl">产品销售走势</div>
+                        <div class="widget-function am-fr">
+                            <a href="javascript:;" class="am-icon-cog"></a>
+                        </div>
+                    </div>
+                    <div class="widget-body am-fr">
+                        <div style="height: 400px" class="" id="tpl-echarts-S">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+     <script type="text/javascript">
+var res={$res};
+//console.log(res);
+var odata=new Array();
+var jsondata=new Array();
+$.each(res,function(i,e){
+    odata.push(i);
+    var jsonobject={value:e,name:i};
+    jsondata.push(jsonobject);
+});
+//console.log(odata);
+
+
+var echartsS = echarts.init(document.getElementById('tpl-echarts-S'));
+optionS = {
+    title: {
+        text: '近期各类产品销售走势'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
+        {
+            name:'邮件营销',
+            type:'line',
+            stack: '总量',
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'联盟广告',
+            type:'line',
+            stack: '总量',
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'视频广告',
+            type:'line',
+            stack: '总量',
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'直接访问',
+            type:'line',
+            stack: '总量',
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'搜索引擎',
+            type:'line',
+            stack: '总量',
+            data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+
+
+ echartsS.setOption(optionS);
+</script>

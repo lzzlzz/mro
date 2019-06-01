@@ -19,9 +19,11 @@
     <link rel="stylesheet" href="__admin__/assets/css/app.css">
     <script src="__admin__/assets/js/jquery.min.js"></script>
 
+
+
 </head>
 
-<body data-type="index">
+<body data-type="chart">
     <script src="__admin__/assets/js/theme.js"></script>
     <div class="am-g tpl-g">
         <!-- 头部 -->
@@ -50,7 +52,7 @@
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你, <span>Amaze UI</span> </a>
+                            <a href="javascript:;">欢迎你, <span>{$username}</span> </a>
                         </li>
 
                         <!-- 新邮件 -->
@@ -160,7 +162,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;">
+                            <a href="{:url('login/logout')}">
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>

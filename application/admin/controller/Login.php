@@ -1,7 +1,7 @@
 <?php
-namespace app\index\controller;
+namespace app\admin\controller;
 use think\Controller;
-use app\index\model\Customer;
+use app\admin\model\Admin;
 class Login extends Controller
 {
     public function index()
@@ -9,10 +9,10 @@ class Login extends Controller
     	if(request()->ispost()){
     		$data=input('post.');
     		//var_dump($data);die();
-    		$cusModel=new Customer;
-    		$res=$cusModel->login($data);
+    		$adModel=new Admin;
+    		$res=$adModel->login($data);
     		if($res==1){
-    			$this->success('登录成功！',url('product/lst'));
+    			$this->success('登录成功！',url('index/index'));
     		}elseif($res==0){
     			$this->error('此用户不存在！');
     		}else{

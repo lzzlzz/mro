@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
-class Cusclass extends Controller
+class Cusclass extends Base
 {
     public function add(){
         if(request()->isPost()){
@@ -18,7 +18,7 @@ class Cusclass extends Controller
     }
     public function lst()
     {
-    	$clsRes=db('customer_class')->paginate(2);
+    	$clsRes=db('customer_class')->paginate(6);
     	$this->assign([
     		'clsRes'=>$clsRes,
     	]);

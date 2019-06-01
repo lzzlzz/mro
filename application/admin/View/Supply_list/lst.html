@@ -14,10 +14,10 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
+                                                  <a href="{:url('add')}" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
+                                              <!-- <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                                 <th>供货单总额</th>
                                                 <th>下单时间</th>
                                              
-                                                <th>操作</th>
+                                                <th>处理状态</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -70,12 +70,13 @@
             <td>{$vo.sl_addtime|date="Y年m月d日",###}</td>
             <td>
                 <div class="tpl-table-black-operation">
-                    <a href="{:url('edit',array('id'=>$vo['id']))}">
-                        <i class="am-icon-pencil"></i> 审核
-                    </a>
-                    <a onClick="return confirm('确定删除?');" href="{:url('del',array('id'=>$vo['id']))}" class="tpl-table-black-operation-del">
-                        <i class="am-icon-trash"></i> 删除
-                    </a>
+
+                   {if condition="$vo['sl_storage'] eq 0"}
+                        <i class="am-icon-pencil"></i> 等待入库
+                        {else/}
+                        <i class="am-icon-pencil"></i> 已入库
+                   {/if}
+                   
                 </div>
             </td>
         </tr>

@@ -91,7 +91,7 @@
 				<p class="title fl">{$vo.pdt_name}</p>
 				<p class="price fl">
 					
-	<strong>{if condition="$vo['inventory']['ivt_original_cost'] eq null"}售罄{else/}<b>¥</b><span id="pdt-{$vo.id}">{$vo.inventory.ivt_original_cost}</span>{/if}</strong>
+	<strong>{if condition="$vo['inventory']['ivt_original_cost'] eq null"}售罄{else/}<b>¥</b><span id="pdt-{$vo.id}">{$vo['inventory']['ivt_original_cost'] * $discount|number_format=###, 2, '.', ''}</span>{/if}</strong>
 				</p>
 				<p class="number fl">
 					<a href="javascript:addCart({$vo.id})"><img style="width:22px;height: 22px;" src="__index__/images/cart.jpg"/></a>

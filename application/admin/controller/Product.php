@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model;
-class Product extends Controller
+class Product extends Base
 {
     public function add(){
          $cateRes=model('Cate')->cateTree();

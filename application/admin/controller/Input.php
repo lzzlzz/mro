@@ -4,7 +4,7 @@ use think\Controller;
 use think\Db;
 use think\Exception;
 use app\admin\model;
-class Input extends Controller
+class Input extends Base
 {
     public function lst()
     {

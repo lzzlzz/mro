@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 
-class Inventory extends Controller
+class Inventory extends Base
 {
     public function lst()
     {  

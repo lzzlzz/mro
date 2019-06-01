@@ -15,7 +15,12 @@
 
             <!-- 菜单 -->
             <ul class="sidebar-nav">
-                <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
+                 <li class="sidebar-nav-link">
+                    <a href="{:url('index/index')}" class="active">
+                        <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                    </a>
+                </li>
+               
                  <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 客户管理
@@ -24,7 +29,7 @@
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
                             <a href="{:url('customer/lst')}" >
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 客户列表
+                                <span class=" sidebar-nav-link-logo"></span> 客户列表
                             </a>
 
 
@@ -32,8 +37,8 @@
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="javascript:;" class="sidebar-nav-sub-title">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 分级管理
+                            <a href="javascript:;" class=" am-icon-angle-right sidebar-nav-sub-title">
+                                <span class=" sidebar-nav-link-logo"></span> 分级管理
                             </a>
 
 
@@ -41,13 +46,13 @@
                             <ul class="sidebar-nav sidebar-nav-sub">
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('cusclass/lst')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 等级列表
+                                        <span class=" sidebar-nav-link-logo"></span> 等级列表
                                     </a>
                                 </li>
 
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('cusclass/add')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 等级新增
+                                        <span class="sidebar-nav-link-logo"></span> 等级新增
                                     </a>
                                 </li>
                             </ul>
@@ -62,7 +67,7 @@
 
                  <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 商品管理
+                        <i class="am-icon-tv sidebar-nav-link-logo"></i> 商品管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
@@ -74,13 +79,13 @@
                                <ul class="sidebar-nav sidebar-nav-sub">
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('product/lst')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品列表
+                                        <span class="sidebar-nav-link-logo"></span> 商品列表
                                     </a>
                                 </li>
 
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('product/add')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 新增商品
+                                        <span class="sidebar-nav-link-logo"></span> 新增商品
                                     </a>
                                 </li>
                             </ul>
@@ -96,13 +101,13 @@
                             <ul class="sidebar-nav sidebar-nav-sub">
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('cate/lst')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 分类列表
+                                        <span class="sidebar-nav-link-logo"></span> 分类列表
                                     </a>
                                 </li>
 
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('cate/add')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 新增分类
+                                        <span class="sidebar-nav-link-logo"></span> 新增分类
                                     </a>
                                 </li>
                             </ul>
@@ -118,13 +123,13 @@
 
              <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 供应商管理
+                        <i class="am-icon-key sidebar-nav-link-logo"></i> 供应商管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
                             <a href="{:url('supplier/lst')}" class="">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 供应商列表
+                                <span class="sidebar-nav-link-logo"></span> 供应商列表
                             </a>
 
                         </li>
@@ -139,13 +144,13 @@
                             <ul class="sidebar-nav sidebar-nav-sub">
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('supplyList/lst')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 供货单列表
+                                        <span class="sidebar-nav-link-logo"></span> 供货单列表
                                     </a>
                                 </li>
 
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('supplyList/add')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 新增供货单
+                                        <span class="sidebar-nav-link-logo"></span> 新增供货单
                                     </a>
                                 </li>
                             </ul>
@@ -157,53 +162,50 @@
 
      <li class="sidebar-nav-link">
         <a href="javascript:;" class="sidebar-nav-sub-title">
-            <i class="am-icon-table sidebar-nav-link-logo"></i> 采购管理
+            <i class="am-icon-calendar sidebar-nav-link-logo"></i> 采购管理
             <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
         </a>
         <ul class="sidebar-nav sidebar-nav-sub">
             <li class="sidebar-nav-link">
                 <a href="{:url('stockout/lst')}" >
-                    <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 缺货列表
+                    <span class="sidebar-nav-link-logo"></span> 缺货信息
                 </a>
-
-
-
             </li>
 
-           <!--  <li class="sidebar-nav-link">
+            <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 分级管理
+                    <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 采购信息
                 </a>
 
 
 
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="{:url('cusclass/lst')}">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 等级列表
+                        <a href="{:url('purchase/replenish')}">
+                            <span class=" sidebar-nav-link-logo"></span> 补货单列表
                         </a>
                     </li>
 
-                    <li class="sidebar-nav-link">
-                        <a href="{:url('cusclass/add')}">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 等级新增
+                    <!-- <li class="sidebar-nav-link">
+                        <a href="#">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 采购单列表
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
 
 
-            </li> -->
+            </li>
         </ul>
     </li>
    <li class="sidebar-nav-link">
         <a href="javascript:;" class="sidebar-nav-sub-title">
-            <i class="am-icon-table sidebar-nav-link-logo"></i> 订单管理
+            <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 订单管理
             <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
         </a>
         <ul class="sidebar-nav sidebar-nav-sub">
             <li class="sidebar-nav-link">
                 <a href="{:url('Order/lst')}" >
-                    <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单列表
+                    <span class="sidebar-nav-link-logo"></span> 订单列表
                 </a>
 
 
@@ -239,7 +241,7 @@
 
              <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 库存管理
+                        <i class="am-icon-clone sidebar-nav-link-logo"></i> 库存管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
@@ -251,13 +253,13 @@
                               <ul class="sidebar-nav sidebar-nav-sub">
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('input/lsted')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 入库单列表
+                                        <span class=" sidebar-nav-link-logo"></span> 入库单列表
                                     </a>
                                 </li>
 
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('input/lst')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待入库列表
+                                        <span class=" sidebar-nav-link-logo"></span> 待入库列表
                                     </a>
                                 </li>
                             </ul>
@@ -265,7 +267,7 @@
                         </li>
                         <li class="sidebar-nav-link">
                             <a href="{:url('inventory/lst')}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 库存列表
+                                <span class=" sidebar-nav-link-logo"></span> 库存列表
                             </a>
                         </li>
 
@@ -279,13 +281,13 @@
                             <ul class="sidebar-nav sidebar-nav-sub">
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('output/lsted')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 出库列表
+                                        <span class=" sidebar-nav-link-logo"></span> 出库列表
                                     </a>
                                 </li>
 
                                 <li class="sidebar-nav-link">
                                     <a href="{:url('output/lst')}">
-                                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待出库列表
+                                        <span class=" sidebar-nav-link-logo"></span> 待出库列表
                                     </a>
                                 </li>
                             </ul>
@@ -294,12 +296,63 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class="sidebar-nav-link">
-                    <a href="index.html" class="active">
-                        <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                 <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 运营管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{:url('operation/market')}" >
+                                <span class="sidebar-nav-link-logo"></span> 销售情况
+                            </a>
+
+                              <!--  <ul class="sidebar-nav sidebar-nav-sub">
+                                <li class="sidebar-nav-link">
+                                    <a href="#">
+                                        <span class=" sidebar-nav-link-logo"></span> 商品列表
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-nav-link">
+                                    <a href="#">
+                                        <span class=" sidebar-nav-link-logo"></span> 新增商品
+                                    </a>
+                                </li>
+                            </ul> -->
+                        </li>
+
+                    <li class="sidebar-nav-link">
+                            <a href="{:url('operation/storage')}" >
+                                <span class="sidebar-nav-link-logo"></span> 库存情况
+                            </a>
+
+
+
+                           <!--  <ul class="sidebar-nav sidebar-nav-sub">
+                                <li class="sidebar-nav-link">
+                                    <a href="#">
+                                        <span class=" sidebar-nav-link-logo"></span> 分类列表
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-nav-link">
+                                    <a href="#">
+                                        <span class=" sidebar-nav-link-logo"></span> 新增分类
+                                    </a>
+                                </li>
+                            </ul> -->
+
+
+                        </li>
+
+
+
+                    </ul>
                 </li>
+
+
+            <!--    
                 <li class="sidebar-nav-link">
                     <a href="tables.html">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 表格
@@ -332,13 +385,13 @@
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
                             <a href="table-list.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                                <span class=" sidebar-nav-link-logo"></span> 文字列表
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
                             <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                                <span class=" sidebar-nav-link-logo"></span> 图文列表
                             </a>
                         </li>
                     </ul>
@@ -359,7 +412,7 @@
                         <i class="am-icon-tv sidebar-nav-link-logo"></i> 404错误
                     </a>
                 </li>
-
+ -->
             </ul>
         </div>
 

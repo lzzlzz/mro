@@ -19,6 +19,11 @@ class Cate extends Model
         return self::with('supplier')->find($id);
     }
 
+    //建立分类与补货单一对多的关系一种类别对应多个补货单
+    public function replenish(){
+        return $this->hasMany('Replenish','rep_cate_id','id');
+    }
+
     
     //过滤前台发过来的多于字段
     protected $field=true;
@@ -62,6 +67,16 @@ class Cate extends Model
         }
         return $arr;
 
+    }
+//根据产品的类别id 找到一级分类id
+    public function getFather($id){
+        $res=self::field('pid')->find($id);
+        $pid=$res['pid'];
+        if($pid==0){
+            return $id;
+        }else{
+            return $this->getFather($pid);
+        }
     }
 
 }
