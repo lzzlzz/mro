@@ -89,7 +89,7 @@
 	</li>
 <li class="td td-sum">
 	<div class="td-inner">
-		<em  tabindex="0" class="J_ItemSum number"><span id="total-{$vo.id}">{$vo['cart_price']*$vo['cart_quantity']}</span></em>
+		<em  tabindex="0" class="J_ItemSum number"><span id="total-{$vo.id}">{$vo['cart_price']*$vo['cart_quantity']|number_format=###, 2, '.', ''}</span></em>
 	</div>
 </li>
 									<li class="td td-op">

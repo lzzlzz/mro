@@ -1,17 +1,6 @@
      <div class="tpl-content-wrapper">
 
-            <div class="container-fluid am-cf">
-               <!--  <div class="row">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 图表 <small>Amaze UI</small></div>
-                        <p class="page-header-description">图表组件使用的是 <a href="http://echarts.baidu.com">百度图表echarts</a>。</p>
-                    </div>
-                    <div class="am-u-lg-3 tpl-index-settings-button">
-                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
-                    </div>
-                </div>
- -->
-            </div>
+           
 
             <div class="row-content am-cf">
                 <div class="widget am-cf">
@@ -36,28 +25,66 @@
     </div>
 
      <script type="text/javascript">
-var res={$res};
-//console.log(res);
-var odata=new Array();
+
+
+var order={$order};
+var data={$data};
+var pdtName={$pdtName};
+/*console.log(pdtName);*/
+console.log(order);
+/*console.log(data);*/
+/*获取所有的时间点*/
+var xdata=new Array();
+$.each(data,function(i,e){
+    xdata.push(Number(e.days));
+});
+/*console.log(xdata);*/
+/*对时间数组进行排序 使sdata中data的数据顺序与x轴的时间顺序一致*/
+xdata=xdata.sort(function(a,b){
+    return a-b;
+});
+/*获取所有的产品名称 也就是决定有几条线*/
+var ldata=new Array();
+var dataid=new Array();
+$.each(order,function(i,e){
+    if($.inArray(e.odt_pdt_id,dataid) ===-1){
+      ldata.push(pdtName[e.odt_pdt_id]);
+      dataid.push(e.odt_pdt_id);
+  }
+});
+/*console.log(ldata);
+console.log(dataid);*/
+/*构造每个产品在对应的天数的销量数组*/
+/*初始化一个二维数组*/
+var sdata=new Array();
+$.each(dataid,function(i,e){
+        sdata[e]=new Array(xdata.length);
+      //  console.log(sdata[e],'da');
+        $.each(sdata[e],function(j,k){
+            var res=findcount(xdata[j],e);
+            sdata[e][j]=res!=0?res:0;
+        });
+});
+/*console.log(sdata);*/
+/*构造json数组*/
 var jsondata=new Array();
-$.each(res,function(i,e){
-    odata.push(i);
-    var jsonobject={value:e,name:i};
+$.each(dataid,function(i,e){
+    var jsonobject={name:pdtName[e],type:'line',stack:'总销量',data:sdata[e]};
     jsondata.push(jsonobject);
 });
-//console.log(odata);
+/*console.log(jsondata);*/
 
 
 var echartsS = echarts.init(document.getElementById('tpl-echarts-S'));
 optionS = {
     title: {
-        text: '近期各类产品销售走势'
+        text: '近期各种产品销售走势'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+        data:ldata,
     },
     grid: {
         left: '3%',
@@ -73,45 +100,27 @@ optionS = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['周一','周二','周三','周四','周五','周六','周日']
+        data: xdata,
     },
     yAxis: {
         type: 'value'
     },
-    series: [
-        {
-            name:'邮件营销',
-            type:'line',
-            stack: '总量',
-            data:[120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-            name:'联盟广告',
-            type:'line',
-            stack: '总量',
-            data:[220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-            name:'视频广告',
-            type:'line',
-            stack: '总量',
-            data:[150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-            name:'直接访问',
-            type:'line',
-            stack: '总量',
-            data:[320, 332, 301, 334, 390, 330, 320]
-        },
-        {
-            name:'搜索引擎',
-            type:'line',
-            stack: '总量',
-            data:[820, 932, 901, 934, 1290, 1330, 1320]
-        }
-    ]
+    /*还差这个json了*/
+    series: jsondata
 };
 
 
  echartsS.setOption(optionS);
+ /*console.log(findcount("20190531",4));*/
+
+ /*定义一个方法 根据时间和产品id从订单表中找出 这一天这个产品的总销量 如果没有返回零*/
+function findcount(day,id){
+    var res=0;
+    $.each(order,function(i,e){
+        if(Number(e.days)===day && e.odt_pdt_id===id){
+           res= e.COUNT;
+        }
+    });
+    return res;
+}
 </script>

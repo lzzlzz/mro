@@ -10,7 +10,15 @@ class Product extends Model
 	public function cart(){
 		return $this->hasOne('Cart','cart_pdt_id','id');
 	}
-	public function getIvt(){
-		return self::with('inventory')->select();
+	public function getIvt($id){
+		if($id==0){
+			return self::with('inventory')->select();
+		}else{
+			$arr=model('Cate')->getChildIds($id);
+			$arr[]=intval($id);
+			//dump($arr);die();
+			return self::with('inventory')->where('pdt_cate_id','in',$arr)->select();
+		}
+		
 	}
 }

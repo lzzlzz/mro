@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-		<title>用户新增</title>
+		<title>MRO商城</title>
 
 		<link href="__index__/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="__index__/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
@@ -26,45 +26,46 @@
 			<article>
 				<div class="mt-logo">
 					<!--顶部导航条 -->
-					<!-- <div class="am-container header">
+					<div class="am-container header">
 						<ul class="message-l">
 							<div class="topMessage">
 								<div class="menu-hd">
-									<a href="#" target="_top" class="h">亲，请登录</a>
-									<a href="#" target="_top">免费注册</a>
+									{if condition="$cusRes['username'] eq null"}
+									<a href="{:url('login/index')}" target="_top" class="h">亲，请登录</a>
+									<a href="{:url('Customer/add')}" target="_top">免费注册</a>
+									{else/}
+									<span>欢迎您，{$cusRes['username']}</span>
+									{/if}
 								</div>
 							</div>
 						</ul>
 						<ul class="message-r">
 							<div class="topMessage home">
-								<div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
+								<div class="menu-hd"><a href="{:url('product/lst')}" target="_top" class="h">商城首页</a></div>
 							</div>
-							<div class="topMessage my-shangcheng">
+							<!-- <div class="topMessage my-shangcheng">
 								<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-							</div>
+							</div> -->
 							<div class="topMessage mini-cart">
-								<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
+								<div class="menu-hd"><a id="mc-menu-hd" href="{:url('cart/lst')}" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span>
+									</a></div>
 							</div>
 							<div class="topMessage favorite">
-								<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+								<!-- <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div> -->
 						</ul>
-						</div> -->
+						</div>
 
 						<!--悬浮搜索框-->
 
-					<!-- 	<div class="nav white">
-							<div class="logoBig">
-								<li><img src="__index__/images/logobig.png" /></li>
+						<div class="nav white" >
+							<div class="logoBig" style="position: absolute;" >
+								<li style="display: inline-block; margin-left:-100px; width:180px;height:100px;"><a href="{:url('product/lst')}"><img src="__index__/images/logo.jpg" /></a></li>
 							</div>
 
 							<div class="search-bar pr">
-								<a name="index_none_header_sysc" href="#"></a>
-								<form>
-									<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-									<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-								</form>
+								<a href="{:url('Customer/add')}"><img src="__index__/images/header.jpg"></a>
 							</div>
-						</div> -->
+						</div>
 
 						<div class="clear"></div>
 					</div>

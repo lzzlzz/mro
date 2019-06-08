@@ -50,11 +50,11 @@
 									<dl id="select2">
 										<dt class="am-badge am-round">种类</dt>
 										<div class="dd-conent">
-											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">东北松子</a></dd>
-											<dd><a href="#">巴西松子</a></dd>
-											<dd><a href="#">夏威夷果</a></dd>
-											<dd><a href="#">松子</a></dd>
+											<dd class="select-all selected"><a href="{:url('lst')}">全部</a></dd>
+								{volist name="cateRes" id="vo"}
+											<dd><a href="{:url('lst',['id'=>$vo.id]
+												)}">{$vo.cate_name}</a></dd>
+								{/volist}
 										</div>
 									</dl>
 								</li>
@@ -110,43 +110,21 @@
 
 			<li>
 				<div class="i-pic check">
-					<img src="__index__/images/cp.jpg" />
-					<p class="check-title">萨拉米 1+1小鸡腿</p>
-					<p class="price fl">
-						<b>¥</b>
-						<strong>29.90</strong>
-					</p>
-					<p class="number fl">
-						销量<span>1110</span>
-					</p>
+					<img src="__uploads__/20190607/225031dfee65fd24b097b7a173995f85.jpg" />
+					<p class="check-title">3M 口罩</p>
+					
+					
 				</div>
 			</li>
 			<li>
 				<div class="i-pic check">
-					<img src="__index__/images/cp2.jpg" />
-					<p class="check-title">ZEK 原味海苔</p>
-					<p class="price fl">
-						<b>¥</b>
-						<strong>8.90</strong>
-					</p>
-					<p class="number fl">
-						销量<span>1110</span>
-					</p>
-				</div>
-												</li> 
-			<li>
-				<div class="i-pic check">
-					<img src="__index__/images/cp.jpg" />
-					<p class="check-title">萨拉米 1+1小鸡腿</p>
-					<p class="price fl">
-						<b>¥</b>
-						<strong>29.90</strong>
-					</p>
-					<p class="number fl">
-						销量<span>1110</span>
-					</p>
+					<img src="__uploads__/20190607/e6367bf12ee90ec37621d86a650c66ba.jpg" />
+					<p class="check-title">缓降器</p>
+					
+					
 				</div>
 			</li>
+		
 
 		</div>
 		<div class="clear"></div>

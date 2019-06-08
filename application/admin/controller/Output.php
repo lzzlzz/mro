@@ -66,6 +66,7 @@ class Output extends Base
                 }
                    
             }
+           // dump($arr);die();
 try{
     Db::startTrans();//开始事务
 
@@ -99,7 +100,7 @@ try{
     $lastId=db('out_storage')->insertGetId($outStorage);
     $res[]=$lastId;
     //dump($res);die();
-    //将供货单状态变更
+    //将订单状态变更
     $res[]=db('order')->where('id',$data['out_order_id'])->update(['order_delivery'=>$lastId]);
     if(in_array('0', $res)){
         throw new Exception('订单出库失败');

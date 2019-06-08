@@ -68,7 +68,7 @@ class SupplyList extends Base
     public function lst()
     {
         $sl=new model\SupplyList;
-        $slRes=$sl::with('Supplier')->paginate(8);
+        $slRes=$sl::with('Supplier')->paginate(5);
     	//$spRes=db('supplier')->paginate(2);
     	$this->assign([
     		'slRes'=>$slRes,

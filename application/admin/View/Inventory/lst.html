@@ -63,7 +63,7 @@
         <tr class="even gradeC">
             <td>{$vo.product.pdt_num}</td>
             <td>{$vo.product.pdt_name}</td>
-            <td>{$vo.ivt_original_cost}</td>
+            <td>{$vo.ivt_original_cost|number_format=###, 2, '.', ''}</td>
             <td>{$vo.ivt_quantity}</td>
             <td>{$vo.ivt_min_quantity}</td>
             <td>{$vo.ivt_max_quantity}</td>

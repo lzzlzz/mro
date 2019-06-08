@@ -4,6 +4,9 @@ use think\Controller;
 use app\admin\model;
 class Product extends Base
 {
+  public function test(){
+    return view();
+  }
     public function add(){
          $cateRes=model('Cate')->cateTree();
         //dump($cateRes);die();
@@ -58,7 +61,7 @@ class Product extends Base
         // }
        // dump($cateRes);die();
       $pdt=new model\Product;
-      $pdtRes=$pdt::with('cate')->paginate(10);
+      $pdtRes=$pdt::with('cate')->paginate(5);
       //dump($pdtRes[0]);die();
     	$this->assign([
     		'pdtRes'=>$pdtRes,
@@ -78,6 +81,9 @@ class Product extends Base
     	if(request()->isPost()){
     		$data=input('post.');
       //  dump($data);die();
+        if($_FILES['pdt_pic']['tmp_name']){
+                       $data['pdt_pic']=$this->upload();
+                   }
     		$res=db('product')->update($data);
     		if($res){
     			$this->success('用户信息修改成功',url('lst'));

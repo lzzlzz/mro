@@ -14,12 +14,12 @@
                             </div>
                             <div class="widget-body am-fr">
 
-                                <form action="" method="post" class="am-form tpl-form-line-form">
+                                <form  data-am-validator action="" method="post" class="am-form tpl-form-line-form">
                                    
                                     <div class="am-form-group">
                                         <label for="user-name" class="am-u-sm-3 am-form-label">等级名称 <span class="tpl-form-line-small-title">ClassName</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入等级名称"  name="cls_name">
+                                            <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入等级名称"  name="cls_name" required>
                                             <small>等级名称</small>
                                         </div>
                                     </div>
@@ -27,7 +27,7 @@
                                     <div class="am-form-group">
                                         <label for="user-email" class="am-u-sm-3 am-form-label">积分下限 <span class="tpl-form-line-small-title">Low_score</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input " placeholder="该等级的最低积分要求，闭区间"   name="cls_low_score">
+                                            <input type="number" class="tpl-form-input " placeholder="该等级的最低积分要求，闭区间"   name="cls_low_score" required>
                                             <small>积分下限</small>
                                         </div>
                                     </div>
@@ -35,7 +35,7 @@
                                     <div class="am-form-group">
                                         <label for="user-email" class="am-u-sm-3 am-form-label">积分上限 <span class="tpl-form-line-small-title">High_score</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input " placeholder="该等级的最高积分要求，开区间"    name="cls_high_score">
+                                            <input type="number" class="tpl-form-input " placeholder="该等级的最高积分要求，开区间"    name="cls_high_score" required>
                                             <small>积分上限</small>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                       <div class="am-form-group">
                                         <label for="user-email" class="am-u-sm-3 am-form-label">折扣比率 <span class="tpl-form-line-small-title">Discount</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="am-form-field tpl-form-no-bg" placeholder="该等级对应的折扣比率" name="cls_discount">
+                                            <input type="number" class="am-form-field tpl-form-no-bg" placeholder="该等级对应的折扣比率" name="cls_discount" required>
                                             <small>折扣比率</small>
                                         </div>
                                     </div>

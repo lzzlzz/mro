@@ -1,14 +1,21 @@
 <?php
 namespace app\index\controller;
 use think\Controller;
+use think\Session;
 class Supplier extends Controller
 {
     public function add()
     {
+         $cusRes['username']='';
+        if (Session::has('username')) {
+            $cusRes['username']=Session::get('username');
+           // dump(Session::get('username'));die();
+        }
         $cateRes=db('cate')->where('pid','=','0')->select();
         //dump($cateRes);die();
         $this->assign([
             'cateRes'=>$cateRes,
+             'cusRes'=>$cusRes,
         ]);
     	if(request()->isPost()){
     		$data=input('post.');

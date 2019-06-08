@@ -1,0 +1,115 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+     <script src="__admin__/assets/js/jquery.min.js"></script>
+     <script src="__admin__/assets/js/jquery.validate.js"></script>
+    <script src="__admin__/assets/js/jquery.metadata.js"></script>
+    <script src="__admin__/assets/js/messages_cn.js"></script>
+</head>
+<body>
+
+    <form id="secondform">      
+    <fieldset>  
+        <legend>自定义jQuery验证</legend>  
+        <div id="xm" class="owinput">  
+            <div class="owlabel">  
+                <label class="req" for="xm"> 姓  名 :</label>  
+            </div>  
+            <div class="owfield">  
+                <span class="inp"> <input name="xm" type="text" class="required "> </span>  
+            </div>  
+        </div>  
+          
+        <div id="xb" class="owinput">  
+            <div class="owlabel">  
+                <label class="req" for="pwd"> 密  码 :</label>  
+            </div>  
+            <div class="owfield">  
+                <span class="inp"> <input id="pwd" name="pwd" type="text"  class="{ validate : { required : true , maxlength : ' 5 ' } }"> </span>  
+            </div>  
+        </div>  
+          
+        <div id="xb" class="owinput">  
+            <div class="owlabel">  
+                <label class="req" for="confirm_pwd"> 密码确认 :</label>  
+            </div>  
+            <div class="owfield">  
+                <span class="inp"> <input name="confirm_pwd" type="text"> </span>  
+            </div>  
+        </div>  
+          
+        <div id="csrq" class="owinput">  
+            <div class="owlabel">  
+                <label class="req" for="f2csrq"> 出生日期 :</label>  
+            </div>  
+            <div class="owfield">  
+                <span class="inp"> <input name="f2csrq" type="text"> </span>  
+            </div>  
+        </div>  
+          
+        <div id="xjzd" class="owinput">  
+            <div class="owlabel">  
+                <label class="req" for="f2xjzd"> 现居住地 :</label>  
+            </div>  
+            <div class="owfield">  
+                <span class="inp"> <input value="" name="f2xjzd" type="text"> </span>  
+            </div>  
+        </div>  
+          
+        <div id="sfzh" class="owinput">  
+            <div class="owlabel">  
+                <label class="req" for="f2sfzh"> 身份证号 :</label>  
+            </div>  
+            <div class="owfield">  
+                <span class="inp"> <input name="f2sfzh" type="text"> </span>  
+            </div>  
+        </div>     
+    </fieldset>  
+    <div id="messageBox"></div> <!-- 此容器用于汇总显示错误信息 -->  
+    <div id="regSubmit">  
+        <span id="btnCreate" class="regBtn" onmouseover="btncreatehover(this);" onmouseout="btncreateout(this);">  
+            <b class="tl"><b class="tr"></b></b><button id="send" type="submit">提  交</button><b class="bl"><b class="br"></b></b>  
+        </span>  
+        <span id="btnCancel" class="cancelBtn" onmouseover="btncancelhover(this);" onmouseout="btncancelout(this);">  
+            <b class="tl"><b class="tr"></b></b><button id="cancelBtn" type="button">取  消</button><b class="bl"><b class="br"></b></b>  
+        </span>  
+    </div>  
+</form>  
+
+
+    </div>
+
+
+   <script type="text/javascript">
+    $().ready(function() {
+         $("#secondform").validate({
+             meta: 'validate',
+             submitHandler:function(form){
+               // alert("submitted");   
+                form.submit();
+             }  ,
+            
+    });
+       
+});
+
+
+</script>
+    
+</body>
+</html>
+
+ <div class="tpl-content-wrapper">
+
+
+
+
+
+
+
+ 
+      

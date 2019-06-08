@@ -7,7 +7,7 @@ class Customer extends Base
 {
     public function lst()
     {  /* 参照关系没有错 没有数据是因为在客户的分类id中出现了不在分类id中的情况*/
-       $cusRes=CustomerModel::with('customerClass')->paginate(2);
+       $cusRes=CustomerModel::with('customerClass')->paginate(5);
       
     	//$cusRes=model('customer')->paginate(2);
     	$this->assign([

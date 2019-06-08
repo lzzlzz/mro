@@ -5,10 +5,11 @@ use app\index\model;
 class Product extends Base
 {
     //用户登录后 从session中获取用户id 找到对应的客户等级 //然后去分类表中找到该等级对应的折扣bilv
-    public function lst()
+    public function lst($id=0)
     {
+        $cateRes=db('cate')->where('pid',0)->select();
         $pdtModel=new model\Product;
-        $pdtRes=$pdtModel->getIvt();
+        $pdtRes=$pdtModel->getIvt($id);
         //dump($res);die();
         $uid=session('uid');
         $cusRes=db('customer')->field('cus_cls_id')->find($uid);
@@ -17,6 +18,7 @@ class Product extends Base
         $this->assign([
         	'pdtRes'=>$pdtRes,
             'discount'=>$clsRes['cls_discount'],
+            'cateRes' =>$cateRes,
         ]);
     	
         return view();

@@ -3,13 +3,17 @@ namespace app\index\controller;
 use think\Controller;
 use think\Db;
 use think\Exception;
+use think\Session;
 use app\index\model;
 class Cart extends Base
 {
+   
     public function lst()
     {
-
-        $cartRes=model('cart')->getCartPdt();
+        $username=Session::get('username');
+    $cusId=db('customer')->field('id')->where('cus_name',$username)->find();
+        $cartRes=model('cart')->getCartPdt($cusId['id']);
+       // dump($cusRes);die();
         $this->assign([
             'cartRes'=>$cartRes,
         ]);
@@ -42,8 +46,15 @@ class Cart extends Base
         if(request()->isPost()){
             $data=input('post.');
             $data['cart_pdt_id']=(int)$data['cart_pdt_id'];
-            $flag=db('cart')->where('cart_pdt_id',$data['cart_pdt_id'])->find();
-            if($flag!=null){//如果此前购物车已经有了我们要添加的东西
+    $username=Session::get('username');
+    $cusId=db('customer')->field('id')->where('cus_name',$username)->find();
+            //既要看有没有这个商品 还要看这个商品是不是这个用户买的 //两个条件同时满足才可以
+            $condition=[
+                'cart_pdt_id'=>$data['cart_pdt_id'],
+                'cart_cus_id'=>$cusId['id']
+            ];
+            $flag=db('cart')->where($condition)->find();
+            if($flag!=null){//如果此前购物车已经有了这个用户要添加的东西
                 //数量累计
                 $flag['cart_quantity']+=(int)$data['cart_quantity'];
                 //价格更新
