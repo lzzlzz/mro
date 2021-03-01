@@ -1,4 +1,4 @@
-本科的一个毕业设计，后台用php开发，用的ThinkPHP5的框架，采用的是前后端不分离的开发方式，前端使用的Amaze UI+Jquery
+本科的一个毕业设计，后台用php开发，用的ThinkPHP5的框架，采用的是前后端不分离的开发方式，前端使用的Amaze UI+JQuery
 
 以下是对ThinkPHP框架的介绍
 
